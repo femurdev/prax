@@ -1,7 +1,11 @@
 import secrets
 
 import requests
+<<<<<<< HEAD
 from flask import Flask, jsonify, redirect, request, send_from_directory, session
+=======
+from flask import Flask, jsonify, redirect, request, session
+>>>>>>> e92e0e7b7570d6c4cb3e8476d0b00ed5f72453d5
 
 from .config import settings
 from .db import current_user, get_db

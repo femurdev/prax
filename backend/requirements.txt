@@ -1,4 +1,7 @@
 Flask==3.1.1
+<<<<<<< HEAD
 flask-socketio==5.4.0
+=======
+>>>>>>> e92e0e7b7570d6c4cb3e8476d0b00ed5f72453d5
 python-dotenv==1.1.0
 requests==2.32.3

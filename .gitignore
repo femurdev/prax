@@ -1,5 +1,6 @@
 __pycache__/
 *.py[cod]
+<<<<<<< HEAD
 node_modules/
 logs/
 backend/.venv/
@@ -7,3 +8,5 @@ frontend/.next/
 frontend/node_modules/
 app.db.
 .venv/
+=======
+>>>>>>> e92e0e7b7570d6c4cb3e8476d0b00ed5f72453d5
