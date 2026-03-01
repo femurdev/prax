@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prax</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-dark text-light">
+  <nav class="navbar navbar-dark bg-black border-bottom border-secondary">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">Prax</span>
+      <span id="nav-user" class="navbar-text text-secondary d-none"></span>
+      <button id="btn-logout" class="btn btn-outline-light btn-sm d-none" type="button">Logout</button>
+    </div>
+  </nav>
+
+  <main class="flex-grow-1 d-flex flex-column overflow-hidden">
+    <!-- Login view -->
+    <section id="view-login" class="view d-none container py-4">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-5">
+          <div class="card bg-secondary bg-opacity-25 border-secondary">
+            <div class="card-body text-center p-5">
+              <h2 class="card-title mb-4">Welcome</h2>
+              <p class="card-text text-secondary mb-4">Sign in with Discord to continue.</p>
+              <a id="btn-discord-login" href="/auth/discord/login" class="btn btn-primary btn-lg px-4">
+                Login with Discord
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Options menu (after login) -->
+    <section id="view-menu" class="view d-none container py-4">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+          <h2 class="text-center mb-4">Choose an option</h2>
+          <div class="row g-3">
+            <div class="col-12 col-md-4">
+              <div class="card h-100 bg-secondary bg-opacity-25 border-secondary hover-card">
+                <div class="card-body text-center d-flex flex-column justify-content-center py-4">
+                  <h5 class="card-title">Join a public game</h5>
+                  <p class="card-text text-secondary small">Find and join an open game.</p>
+                  <button type="button" class="btn btn-outline-light mt-auto" data-action="join-public">Join public game</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="card h-100 bg-secondary bg-opacity-25 border-secondary hover-card">
+                <div class="card-body text-center d-flex flex-column justify-content-center py-4">
+                  <h5 class="card-title">Create a private game</h5>
+                  <p class="card-text text-secondary small">Start a private game and invite friends.</p>
+                  <button type="button" class="btn btn-outline-light mt-auto" data-action="create-private">Create private game</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="card h-100 bg-secondary bg-opacity-25 border-secondary hover-card">
+                <div class="card-body text-center d-flex flex-column justify-content-center py-4">
+                  <h5 class="card-title">Start a local game</h5>
+                  <p class="card-text text-secondary small">Play locally without the server.</p>
+                  <button type="button" class="btn btn-outline-light mt-auto" data-action="local">Start local game</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Game view (4 sections: Action Code | World Map, Inspector | Docs; bottom row collapsible) -->
+    <section id="view-game" class="view d-none flex-grow-1 d-flex flex-column min-h-0 w-100 px-2 pb-2">
+      <div class="d-flex justify-content-between align-items-center py-2 flex-shrink-0">
+        <div class="d-flex align-items-center gap-2">
+          <h2 class="h5 mb-0">Game</h2>
+          <span id="game-mode-badge" class="badge bg-secondary text-uppercase small"></span>
+        </div>
+        <button type="button" class="btn btn-outline-secondary btn-sm" id="btn-back-to-menu">Back to menu</button>
+      </div>
+      <div class="game-layout flex-grow-1 d-flex flex-row min-h-0 rounded border border-secondary overflow-hidden">
+        <!-- Left column: Action Code (grows) + Inspector (collapsible); collapse gives space to Action Code -->
+        <div class="game-column d-flex flex-column flex-grow-1 min-w-0 border-end border-secondary">
+          <div class="game-panel flex-grow-1 min-h-0 border-bottom border-secondary" id="section-action-code">
+            <div class="game-panel-label border-bottom border-secondary px-2 py-1 small text-secondary d-flex align-items-center justify-content-between">
+              <span>Action Code</span>
+              <button type="button" class="btn btn-outline-secondary btn-sm py-0" id="btn-run-action">Run</button>
+            </div>
+            <div class="game-panel-body p-0 h-100 d-flex flex-column">
+              <textarea id="action-code-editor" class="form-control bg-dark text-light border-0 flex-grow-1 font-monospace small" placeholder="MOVE_UP&#10;MOVE_RIGHT&#10;REPEAT 5 MOVE_DOWN" spellcheck="false"></textarea>
+            </div>
+          </div>
+          <div class="game-collapsible flex-shrink-0 border-top border-secondary" id="panel-inspector">
+            <button type="button" class="game-collapse-toggle d-flex align-items-center justify-content-between w-100 px-2 py-1 small text-secondary bg-transparent border-0 text-start" data-panel="inspector" aria-expanded="true">
+              <span>Inspector</span>
+              <span class="collapse-icon">▼</span>
+            </button>
+            <div class="game-collapsible-body">
+              <div class="game-panel-body p-2 overflow-auto inspector-content small">
+                <div class="mb-2 fw-bold">Inspector</div>
+                <div id="inspector-selected" class="text-secondary">Selected: —</div>
+                <div id="inspector-props" class="mt-2 text-secondary">No selection</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Right column: World Map (grows) + Docs (collapsible); collapse gives space to World Map -->
+        <div class="game-column d-flex flex-column flex-grow-1 min-w-0">
+          <div class="game-panel flex-grow-1 min-h-0 border-bottom border-secondary" id="section-world-map">
+            <div class="game-panel-label border-bottom border-secondary px-2 py-1 small text-secondary">World Map</div>
+            <div class="game-panel-body p-0 h-100 position-relative overflow-auto">
+              <canvas id="world-map-canvas"></canvas>
+            </div>
+          </div>
+          <div class="game-collapsible flex-shrink-0" id="panel-docs">
+            <button type="button" class="game-collapse-toggle d-flex align-items-center justify-content-between w-100 px-2 py-1 small text-secondary bg-transparent border-0 text-start" data-panel="docs" aria-expanded="true">
+              <span>Docs</span>
+              <span class="collapse-icon">▼</span>
+            </button>
+            <div class="game-collapsible-body">
+              <div class="game-panel-body p-2 overflow-auto docs-content small">
+                <div class="mb-2 fw-bold">Docs</div>
+                <p class="text-secondary mb-1">Action Code (one command per line):</p>
+                <ul class="text-secondary small mb-1 ps-3">
+                  <li>MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT</li>
+                  <li>REPEAT n MOVE_UP (e.g. REPEAT 5 MOVE_DOWN)</li>
+                </ul>
+                <p class="text-secondary mb-1">Click Run to send your script. Moves run at a fixed rate; all players see the same map.</p>
+                <p class="text-secondary mb-1">Map: border ⬛, center wall 🧱. Max 12 players per map.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/game-map.js"></script>
+</body>
+</html>

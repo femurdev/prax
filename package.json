@@ -1,0 +1,14 @@
+{
+  "name": "prax",
+  "private": true,
+  "scripts": {
+    "start": "pm2 start ecosystem.config.cjs",
+    "stop": "pm2 stop prax-backend",
+    "restart": "pm2 restart prax-backend",
+    "logs": "pm2 logs prax-backend",
+    "status": "pm2 status prax-backend"
+  },
+  "devDependencies": {
+    "pm2": "^5.3.0"
+  }
+}

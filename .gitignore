@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+node_modules/
+logs/
+backend/.venv/
+frontend/.next/
+frontend/node_modules/
+app.db.
+.venv/

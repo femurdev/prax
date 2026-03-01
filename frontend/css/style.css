@@ -1,0 +1,106 @@
+/* Use most of viewport: main fills remaining height when game is shown */
+body {
+  min-height: 100vh;
+}
+
+main {
+  min-height: 0;
+}
+
+/* Game layout: use most of viewport width and height */
+#view-game {
+  max-width: 100%;
+  min-height: 0;
+}
+
+.game-layout {
+  min-height: calc(100vh - 120px);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Two columns: left = Action Code + Inspector, right = World Map + Docs */
+.game-column {
+  min-height: 0;
+}
+
+.game-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-panel-label {
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.game-panel-body {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Collapsible: Inspector under Action Code, Docs under World Map; collapsed space goes to panel above */
+.game-collapsible {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.game-collapse-toggle {
+  flex-shrink: 0;
+  cursor: pointer;
+  color: var(--bs-secondary-color) !important;
+}
+
+.game-collapse-toggle:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: var(--bs-light) !important;
+}
+
+.collapse-icon {
+  transition: transform 0.2s ease;
+}
+
+.game-collapsible.collapsed .collapse-icon {
+  transform: rotate(-90deg);
+}
+
+.game-collapsible-body {
+  flex-shrink: 0;
+  min-height: 80px;
+  max-height: 25vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: max-height 0.2s ease, min-height 0.2s ease;
+}
+
+.game-collapsible.collapsed .game-collapsible-body {
+  max-height: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.game-collapsible .game-panel-body {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Menu card hover */
+.hover-card:hover {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Action code editor: fill panel, no resize handle */
+#action-code-editor {
+  resize: none;
+  min-height: 100px;
+}
+
+/* World map canvas: 120x120 grid at 8px per cell = 960px */
+#world-map-canvas {
+  display: block;
+  background: #1a1a1a;
+  min-width: 960px;
+  min-height: 960px;
+}
