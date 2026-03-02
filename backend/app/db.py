@@ -28,6 +28,30 @@ def init_db() -> None:
             )
             """
         )
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS map_chunks (
+                chunk_x INTEGER NOT NULL,
+                chunk_y INTEGER NOT NULL,
+                tiles_json TEXT NOT NULL,
+                updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (chunk_x, chunk_y)
+            )
+            """
+        )
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS foreground_entities (
+                id TEXT PRIMARY KEY,
+                entity_type TEXT NOT NULL,
+                origin_x INTEGER NOT NULL,
+                origin_y INTEGER NOT NULL,
+                data_json TEXT NOT NULL,
+                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+            )
+            """
+        )
 
 
 def current_user() -> dict[str, Any] | None:
