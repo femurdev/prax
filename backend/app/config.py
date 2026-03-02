@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+FRONTEND_DIR = BASE_DIR.parent / "frontend"
 
 
 @dataclass(frozen=True)
@@ -22,6 +23,8 @@ class Settings:
         os.getenv("SESSION_COOKIE_SECURE", "false").lower() == "true"
     )
     port: int = int(os.getenv("PORT", "5000"))
+    frontend_dir: Path = FRONTEND_DIR
+    base_dir: Path = BASE_DIR
 
 
 settings = Settings()
