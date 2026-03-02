@@ -1,18 +1,12 @@
 from flask import Flask
-<<<<<<< HEAD
 from flask_socketio import SocketIO
-=======
->>>>>>> e92e0e7b7570d6c4cb3e8476d0b00ed5f72453d5
 
 from .config import settings
 from .db import init_db
 from .routes import register_routes
-<<<<<<< HEAD
 from .sockets import register_socket_handlers, start_tick_loop
 
 socketio = SocketIO(cors_allowed_origins="*", async_mode="threading")
-=======
->>>>>>> e92e0e7b7570d6c4cb3e8476d0b00ed5f72453d5
 
 
 def create_app() -> Flask:
@@ -27,10 +21,7 @@ def create_app() -> Flask:
         init_db()
 
     register_routes(app)
-<<<<<<< HEAD
     socketio.init_app(app)
     register_socket_handlers(socketio)
     start_tick_loop(socketio)
-=======
->>>>>>> e92e0e7b7570d6c4cb3e8476d0b00ed5f72453d5
     return app

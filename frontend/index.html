@@ -110,8 +110,14 @@
         <!-- Right column: World Map (grows) + Docs (collapsible); collapse gives space to World Map -->
         <div class="game-column d-flex flex-column flex-grow-1 min-w-0">
           <div class="game-panel flex-grow-1 min-h-0 border-bottom border-secondary" id="section-world-map">
-            <div class="game-panel-label border-bottom border-secondary px-2 py-1 small text-secondary">World Map</div>
-            <div class="game-panel-body p-0 h-100 position-relative overflow-auto">
+            <div class="game-panel-label border-bottom border-secondary px-2 py-1 small text-secondary d-flex align-items-center justify-content-between">
+              <span>World Map</span>
+              <div class="d-flex gap-1">
+                <button type="button" class="btn btn-outline-secondary btn-sm py-0" id="world-map-zoom-out" title="Zoom out">−</button>
+                <button type="button" class="btn btn-outline-secondary btn-sm py-0" id="world-map-zoom-in" title="Zoom in">+</button>
+              </div>
+            </div>
+            <div class="game-panel-body p-0 h-100 position-relative overflow-hidden world-map-viewport">
               <canvas id="world-map-canvas"></canvas>
             </div>
           </div>

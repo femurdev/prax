@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -e
 cd "$(dirname "$0")/../backend"
-if [[ -x .venv/bin/python ]]; then
-  exec .venv/bin/python main.py
-fi
-if [[ -x .venv/bin/python3 ]]; then
-  exec .venv/bin/python3 main.py
-fi
+# Prefer venv; try python3.12 first (in case python/python3 point at missing 3.11)
+for py in .venv/bin/python3.12 .venv/bin/python3 .venv/bin/python; do
+  if [[ -x "$py" ]] && "$py" -c "import sys; sys.exit(0)" 2>/dev/null; then
+    exec "$py" main.py
+  fi
+done
 exec python3 main.py

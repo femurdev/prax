@@ -12,6 +12,7 @@
     Object.values(views).forEach((v) => v.classList.add('d-none'));
     const v = views[id];
     if (v) v.classList.remove('d-none');
+    document.body.classList.toggle('view-game', id === 'game');
     if (id === 'menu' || id === 'game') {
       navUser.classList.remove('d-none');
       btnLogout.classList.remove('d-none');
